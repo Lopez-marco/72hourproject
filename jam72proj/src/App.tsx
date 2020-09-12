@@ -1,4 +1,5 @@
 import React from 'react';
+import OpenWeatherMain from './OpenWeather/OpenWeatherMain';
 
 export interface AppProps {
 }
@@ -24,22 +25,25 @@ class App extends React.Component<AppProps, AppState> {
   }
 
   getLocation() {
-    console.log('this runs');
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(this.success, this.failure)
-      console.log('this is running')
     }
   }
-  success = (pos:Position):void => {
-    this.setState({latitude: pos.coords.latitude})
-    this.setState({longitude: pos.coords.longitude})
+  success = (pos: Position): void => {
+    this.setState({ latitude: pos.coords.latitude })
+    this.setState({ longitude: pos.coords.longitude })
   }
 
-  failure = (pos:PositionError):void => {
+  failure = (pos: PositionError): void => {
     console.log('error', pos);
   }
   render() {
-  return (<div>{this.state.latitude} {this.state.longitude}</div>);
+    return (
+      <div>
+        <OpenWeatherMain url={'api.openweathermap.org/data/2.5/weather?lat=' + this.state.latitude + '&lon='
+          + this.state.longitude + '&appid=fd18b03e8677888ed6de2e157e4e2db6&units=imperial'} />
+      </div>
+    );
   }
 }
 

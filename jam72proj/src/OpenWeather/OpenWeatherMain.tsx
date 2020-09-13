@@ -1,10 +1,13 @@
 import React from 'react';
+import { OpenWeatherResp, Weather, Main } from './OpenWeatherInterface';
 
 export interface OpenWeatherMainProps {
-    url: string,
+    latitude:number;
+    longitude: number;
 }
 
 export interface OpenWeatherMainState {
+    url: string;
     name: string;
     description: string;
     tempImp: number;
@@ -17,6 +20,7 @@ class OpenWeatherMain extends React.Component<OpenWeatherMainProps, OpenWeatherM
     constructor(props: OpenWeatherMainProps) {
         super(props);
         this.state = {
+            url: '',
             name: '',
             description: '',
             tempImp: 0,
@@ -32,13 +36,16 @@ class OpenWeatherMain extends React.Component<OpenWeatherMainProps, OpenWeatherM
         return ((temp - 32) * 5) / 9;
     }
 
-    componentWillMount() {
+    componentDidMount() {
+        
         this.funcTest();
 
     }
 
     funcTest() {
-        fetch(this.props.url).then(res => res.json()).then(data => {
+        fetch(`api.openweathermap.org/data/2.5/weather?lat=39.7695&lon=-86.0697&appid=fd18b03e8677888ed6de2e157e4e2db6&units=imperial`)
+        .then(res => res.json())
+        .then((data:OpenWeatherResp) => {
             console.log('DATA', data);
             this.setState({ name: data.name })
         })
@@ -47,7 +54,7 @@ class OpenWeatherMain extends React.Component<OpenWeatherMainProps, OpenWeatherM
     render() {
         return (
             <div>
-                <p>{this.props.url}</p>
+                <p>{this.state.url}</p>
                 <p>{this.state.name}</p>
             </div>);
     }

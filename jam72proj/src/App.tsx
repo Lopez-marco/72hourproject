@@ -40,8 +40,7 @@ class App extends React.Component<AppProps, AppState> {
   render() {
     return (
       <div>
-        <OpenWeatherMain url={'api.openweathermap.org/data/2.5/weather?lat=' + this.state.latitude + '&lon='
-          + this.state.longitude + '&appid=fd18b03e8677888ed6de2e157e4e2db6&units=imperial'} />
+        <OpenWeatherMain latitude={this.state.latitude} longitude={this.state.longitude} />
       </div>
     );
   }

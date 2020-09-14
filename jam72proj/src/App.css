@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+.App {
+  text-align: center;
+  /* Comment */
+=======
 /* OPEN WEATHER COMPONENT */
 
 #weatherContainer {
@@ -8,6 +13,7 @@
   box-shadow: 1px 4px 10px #babbbb;
   display: flex;
   flex-direction: column;
+>>>>>>> bd185753d480f7da35be12e89b7b569ca397ead8
 }
 
 #weatherTop {

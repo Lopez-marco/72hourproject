@@ -1,4 +1,3 @@
-
 import React from 'react';
 import OpenWeatherMain from './OpenWeather/OpenWeatherMain';
 import Zomato from "./Zomato/Zomato";

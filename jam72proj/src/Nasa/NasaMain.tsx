@@ -1,5 +1,5 @@
 import React from "react";
-import NasaImage from "./NasaImage";
+import { NasaMainResponse } from './NasaMainInterface';
 
 export interface NasaImageMainProps {
   latitude: number;
@@ -8,7 +8,7 @@ export interface NasaImageMainProps {
 }
 
 export interface NasaImageMainState {
-  img: any;
+  img: string;
 }
 
 class NasaMain extends React.Component<NasaImageMainProps, NasaImageMainState> {
@@ -16,26 +16,14 @@ class NasaMain extends React.Component<NasaImageMainProps, NasaImageMainState> {
     super(props);
 
     this.state = {
-      img: null
+      img: ''
     };
     this.componentgetsProps = this.componentgetsProps.bind(this);
     this.formatDate = this.formatDate.bind(this);
   }
 
-  componentgetsProps() {
-    fetch(`https://api.nasa.gov/planetary/earth/imagery/?lon=${this.state.longitude}&lat=${this.state.latitude}&date=2020-09-12&cloud_score=True&api_key=xjTmLfj7sIWxLjV4hzb2nrcxwPuF23ovPcq5YqnI`)
-      .then((res) => res.json())
-      .then((json) => {
-        this.setState({
-          img: json.url,
-        });
-        console.log(this.state.img);
-      })
-      .catch((error) => console.log(error));
-  }
-
   formatDate() {
-    let month = String(this.props.date.getMonth()+1);
+    let month = String(this.props.date.getMonth() + 1);
     let day = String(this.props.date.getDate());
     if ((month).length === 1) {
       month = '0' + month;
@@ -43,20 +31,39 @@ class NasaMain extends React.Component<NasaImageMainProps, NasaImageMainState> {
     if ((day).length === 1) {
       day = '0' + day;
     }
-    let date = ${this.props.date.getFullYear()}-${month}-${day};
-    console.log(date);
+    let date = `${ this.props.date.getFullYear()-1 }-${ month }-${ day }`;
+    console.log('date ', date);
     return date;
   }
+
+  componentgetsProps(date:string) {
+    let url = `https://api.nasa.gov/planetary/earth/assets?lon=${this.props.longitude}&lat=${this.props.latitude}&date=${date}&cloud_score=True&api_key=xjTmLfj7sIWxLjV4hzb2nrcxwPuF23ovPcq5YqnI`;
+    console.log(url);
+    fetch(url)
+      .then((res) => res.json())
+      .then((json:NasaMainResponse) => {
+        this.setState({
+          img: json.url
+        });
+      })
+      .catch((error) => console.log(error));
+  }
+
+  componentDidMount() {
+    this.componentgetsProps(this.formatDate());
+  }
+
+
 
   render() {
     return (
       <div>
         <h1>Image of Your Location via NASA</h1>
-        <NasaImage url={this.state.img} />
         <p>
           Image displayed is based on your current latitude and longitude
           utilizing the NASA Earth API.
         </p>
+        <img src={this.state.img} alt=''></img>
       </div>
     );
   }

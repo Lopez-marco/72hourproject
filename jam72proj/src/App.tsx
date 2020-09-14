@@ -1,9 +1,8 @@
-
-import React from 'react';
-import OpenWeatherMain from './OpenWeather/OpenWeatherMain';
+import React from "react";
+import OpenWeatherMain from "./OpenWeather/OpenWeatherMain";
 import Zomato from "./Zomato/Zomato";
 
-export interface AppProps { }
+export interface AppProps {}
 export interface AppState {
   latitude: number;
   longitude: number;
@@ -17,7 +16,6 @@ class App extends React.Component<{}, AppState> {
       latitude: 0,
       longitude: 0,
       date: new Date(),
-
     };
     this.getLocation = this.getLocation.bind(this);
     this.success = this.success.bind(this);
@@ -29,29 +27,33 @@ class App extends React.Component<{}, AppState> {
   }
 
   getLocation() {
-
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(this.success, this.failure)
+      navigator.geolocation.getCurrentPosition(this.success, this.failure);
     }
   }
   success = (pos: Position): void => {
-    this.setState({ latitude: pos.coords.latitude })
-    this.setState({ longitude: pos.coords.longitude })
-  }
-    failure = (pos: PositionError): void => {
-      console.log('error', pos);
-    }
+    this.setState({ latitude: pos.coords.latitude });
+    this.setState({ longitude: pos.coords.longitude });
+  };
+  failure = (pos: PositionError): void => {
+    console.log("error", pos);
+  };
 
-    render() {
-      const zomatoURL = `https://developers.zomato.com/api/v2.1/geocode?lat=${this.state.latitude}&lon=${this.state.longitude}`;
-      return (
-        <div>
-          {this.state.latitude > 0 && this.state.longitude ?
-            <OpenWeatherMain url={`http://api.openweathermap.org/data/2.5/weather?lat=${this.state.latitude}&lon=${this.state.longitude}&appid=fd18b03e8677888ed6de2e157e4e2db6&units=imperial`} />
-            : null}
-          <Zomato url={zomatoURL} />
-          </div>
-        )
+  render() {
+    return (
+      <div>
+        {this.state.latitude > 0 && this.state.longitude ? (
+          <OpenWeatherMain
+            url={`http://api.openweathermap.org/data/2.5/weather?lat=${this.state.latitude}&lon=${this.state.longitude}&appid=fd18b03e8677888ed6de2e157e4e2db6&units=imperial`}
+          />
+        ) : null}
+        {this.state.latitude > 0 && this.state.longitude ? (
+          <Zomato
+            url={`https://developers.zomato.com/api/v2.1/geocode?lat=${this.state.latitude}&lon=${this.state.longitude}`}
+          />
+        ) : null}
+      </div>
+    );
   }
 }
 export default App;

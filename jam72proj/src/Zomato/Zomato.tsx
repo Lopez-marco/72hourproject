@@ -1,5 +1,6 @@
 import React from "react";
-import { RestaurantResponse } from "./ZomatoInterface";
+import { RestaurantResponse, NearbyRestaurant } from "./ZomatoInterface";
+import ZomatoRestaurants from "./ZomatoRestaurants";
 
 export interface ZomatoProps {
   url: string;
@@ -20,19 +21,32 @@ class Zomato extends React.Component<ZomatoProps, ZomatoState> {
       method: "GET",
       headers: {
         "user-key": "d29e21fa0bcb0a754769d23457e8a27a",
-        // "Content-Type": "application/x-www-form-urlencoded",
-        // Accept: "application/json",
       },
     })
       .then((res) => res.json())
       .then((json: RestaurantResponse) => {
         console.log(json);
-        this.setState({ zomatoRestaurants: json });
+        this.setState({ zomatoRestaurants: json.nearby_restaurants });
       });
   }
 
   render() {
-    return <div>hello from zomato Component</div>;
+    return (
+      <div>
+        {this.state.zomatoRestaurants.length > 0 ? (
+          this.state.zomatoRestaurants.map(
+            (nearby_restaurants: NearbyRestaurant, index: number) => (
+              <ZomatoRestaurants
+                nearby_restaurants={nearby_restaurants}
+                key={index}
+              />
+            )
+          )
+        ) : (
+          <></>
+        )}
+      </div>
+    );
   }
 }
 

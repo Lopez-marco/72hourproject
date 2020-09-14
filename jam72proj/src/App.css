@@ -1,11 +1,32 @@
+body {
+  margin: 0;
+  padding: 2em;
+  height: 100%;
+  background-image: linear-gradient( rgb(36, 36, 36), rgb(196, 196, 196));
+}
+
+/* MAIN APP */
+#mainTopSection {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3em;
+}
+
+#app h1 {
+  font-size: 2em;
+  color: white;
+}
+
+/* WEATHER COMPONENT */
 #weatherContainer {
   width: 45em;
   padding: 2em;
-  background: rgb(204, 233, 247);
+  background: rgb(244, 251, 255);
   border-radius: 20px;
-  box-shadow: 1px 4px 10px #babbbb;
+  box-shadow: 1px 4px 10px #6e6f70;
   display: flex;
   flex-direction: column;
+  margin-right: 3em;
 }
 
 #weatherTop {
@@ -60,3 +81,12 @@
   padding-right: 1em;
   border-right: 1px solid gray;
 }
+
+/* NASA COMPONENT */
+#nasaImage {
+  width: 15%;
+  background: rgb(204, 233, 247);
+  border-radius: 20px;
+  box-shadow: 1px 4px 10px #6e6f70;
+}
+

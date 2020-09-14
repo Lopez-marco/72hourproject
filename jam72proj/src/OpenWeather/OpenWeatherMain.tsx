@@ -44,9 +44,7 @@ class OpenWeatherMain extends React.Component<OpenWeatherMainProps, OpenWeatherM
     }
 
     componentDidMount() {
-
         this.funcTest();
-
     }
 
     funcTest() {

@@ -43,7 +43,7 @@ class Zomato extends React.Component<ZomatoProps, ZomatoState> {
             )
           )
         ) : (
-          <></>
+          <></><div><div/>
         )}
       </div>
     );

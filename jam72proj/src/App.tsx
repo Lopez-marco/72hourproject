@@ -1,3 +1,6 @@
+
+import React from 'react';
+import OpenWeatherMain from './OpenWeather/OpenWeatherMain';
 import React from "react";
 import Zomato from "./Zomato/Zomato";
 
@@ -5,14 +8,17 @@ export interface AppProps {}
 export interface AppState {
   latitude: number;
   longitude: number;
+  date: Date;
 }
 
-class App extends React.Component<AppProps, AppState> {
-  constructor(props: AppProps) {
+class App extends React.Component<{}, AppState> {
+  constructor(props: {}) {
     super(props);
     this.state = {
       latitude: 0,
       longitude: 0,
+      date: new Date(),
+
     };
     this.getLocation = this.getLocation.bind(this);
     this.success = this.success.bind(this);
@@ -24,31 +30,28 @@ class App extends React.Component<AppProps, AppState> {
   }
 
   getLocation() {
-    console.log("this runs");
+
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(this.success, this.failure);
-      console.log("this is running");
+      navigator.geolocation.getCurrentPosition(this.success, this.failure)
     }
   }
   success = (pos: Position): void => {
-    this.setState({ latitude: pos.coords.latitude });
-    this.setState({ longitude: pos.coords.longitude });
-  };
+    this.setState({ latitude: pos.coords.latitude })
+    this.setState({ longitude: pos.coords.longitude })
+  }
 
   failure = (pos: PositionError): void => {
-    console.log("error", pos);
-  };
-
+    console.log('error', pos);
+  }
   render() {
-    const zomatoURL = `https://developers.zomato.com/api/v2.1/geocode?lat=${this.state.latitude}&lon=${this.state.longitude}`;
-    console.log(zomatoURL);
+            const zomatoURL = `https://developers.zomato.com/api/v2.1/geocode?lat=${this.state.latitude}&lon=${this.state.longitude}`;
     return (
       <div>
-        {this.state.latitude} {this.state.longitude}
-        <Zomato url={zomatoURL} />
-      </div>
-    );
+        {this.state.latitude > 0 && this.state.longitude ?
+          <OpenWeatherMain url={`http://api.openweathermap.org/data/2.5/weather?lat=${this.state.latitude}&lon=${this.state.longitude}&appid=fd18b03e8677888ed6de2e157e4e2db6&units=imperial`} />
+          : null}
+       <Zomato url={zomatoURL} />
+        )
   }
 }
-
 export default App;

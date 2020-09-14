@@ -36,13 +36,11 @@ class App extends React.Component<{}, AppState> {
     }
   }
   success = (pos: Position): void => {
-    this.setState({ latitude: pos.coords.latitude })
-    this.setState({ longitude: pos.coords.longitude })
-  }
-
+    
   failure = (pos: PositionError): void => {
     console.log('error', pos);
   }
+    
   render() {
             const zomatoURL = `https://developers.zomato.com/api/v2.1/geocode?lat=${this.state.latitude}&lon=${this.state.longitude}`;
     return (

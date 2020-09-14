@@ -1,26 +1,54 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Zomato from "./Zomato/Zomato";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export interface AppProps {}
+export interface AppState {
+  latitude: number;
+  longitude: number;
+}
+
+class App extends React.Component<AppProps, AppState> {
+  constructor(props: AppProps) {
+    super(props);
+    this.state = {
+      latitude: 0,
+      longitude: 0,
+    };
+    this.getLocation = this.getLocation.bind(this);
+    this.success = this.success.bind(this);
+    this.failure = this.failure.bind(this);
+  }
+
+  componentWillMount() {
+    this.getLocation();
+  }
+
+  getLocation() {
+    console.log("this runs");
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(this.success, this.failure);
+      console.log("this is running");
+    }
+  }
+  success = (pos: Position): void => {
+    this.setState({ latitude: pos.coords.latitude });
+    this.setState({ longitude: pos.coords.longitude });
+  };
+
+  failure = (pos: PositionError): void => {
+    console.log("error", pos);
+  };
+
+  render() {
+    const zomatoURL = `https://developers.zomato.com/api/v2.1/geocode?lat=${this.state.latitude}&lon=${this.state.longitude}`;
+    console.log(zomatoURL);
+    return (
+      <div>
+        {this.state.latitude} {this.state.longitude}
+        <Zomato url={zomatoURL} />
+      </div>
+    );
+  }
 }
 
 export default App;

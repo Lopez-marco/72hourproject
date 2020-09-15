@@ -1,6 +1,7 @@
 import React from "react";
 import { RestaurantResponse, NearbyRestaurant } from "./ZomatoInterface";
 import ZomatoRestaurants from "./ZomatoRestaurants";
+import { Grid } from "@material-ui/core";
 
 export interface ZomatoProps {
   url: string;
@@ -21,12 +22,15 @@ class Zomato extends React.Component<ZomatoProps, ZomatoState> {
       method: "GET",
       headers: {
         "user-key": "d29e21fa0bcb0a754769d23457e8a27a",
+        dataType: "jsonp",
       },
     })
       .then((res) => res.json())
       .then((json: RestaurantResponse) => {
         console.log(json);
-        this.setState({ zomatoRestaurants: json.nearby_restaurants });
+        this.setState({
+          zomatoRestaurants: json.nearby_restaurants,
+        });
       });
   }
 
@@ -36,14 +40,11 @@ class Zomato extends React.Component<ZomatoProps, ZomatoState> {
         {this.state.zomatoRestaurants.length > 0 ? (
           this.state.zomatoRestaurants.map(
             (nearby_restaurants: NearbyRestaurant, index: number) => (
-              <ZomatoRestaurants
-                nearby_restaurants={nearby_restaurants}
-                key={index}
-              />
+              <ZomatoRestaurants restaurants={nearby_restaurants} key={index} />
             )
           )
         ) : (
-          <></><div><div/>
+          <></>
         )}
       </div>
     );

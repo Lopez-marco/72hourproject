@@ -1,6 +1,7 @@
 import React from "react";
 import OpenWeatherMain from "./OpenWeather/OpenWeatherMain";
 import Zomato from "./Zomato/Zomato";
+import { Grid } from "@material-ui/core";
 
 export interface AppProps {}
 export interface AppState {
@@ -47,6 +48,7 @@ class App extends React.Component<{}, AppState> {
             url={`http://api.openweathermap.org/data/2.5/weather?lat=${this.state.latitude}&lon=${this.state.longitude}&appid=fd18b03e8677888ed6de2e157e4e2db6&units=imperial`}
           />
         ) : null}
+
         {this.state.latitude > 0 && this.state.longitude ? (
           <Zomato
             url={`https://developers.zomato.com/api/v2.1/geocode?lat=${this.state.latitude}&lon=${this.state.longitude}`}

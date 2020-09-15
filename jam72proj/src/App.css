@@ -62,3 +62,7 @@
   padding-right: 1em;
   border-right: 1px solid gray;
 }
+
+#restTitle h2 {
+  color: #DF9B3A,
+}

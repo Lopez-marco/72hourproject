@@ -90,12 +90,12 @@ const ZomatoRestaurants: React.SFC<ZomatoRestaurantsProps> = (props) => {
           </CardActionArea>
           <CardActions className={classes.background}>
             <Button
+              style={{margin: '0.5em'}}
               variant="contained"
               href={props.restaurants.restaurant.menu_url}
             >
               Go to Menu
             </Button>
-            <Button variant="contained">Learn More</Button>
           </CardActions>
         </Card>
       </Container>

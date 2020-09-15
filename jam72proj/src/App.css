@@ -51,6 +51,7 @@ body {
 #weatherDesc h3 {
   font-size: 1.8em;
 }
+
 #weatherDesc h5 {
   font-size: 1.2em;
   color: rgba(0, 0, 0, 0.603);
@@ -80,6 +81,11 @@ body {
 #weatherMin {
   padding-right: 1em;
   border-right: 1px solid gray;
+}
+
+
+#restTitle h2 {
+  color: #DF9B3A,
 }
 
 /* NASA COMPONENT */

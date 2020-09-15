@@ -3,9 +3,9 @@ import Grid from '@material-ui/core/Grid';
 import OpenWeatherMain from './OpenWeather/OpenWeatherMain';
 import Zomato from "./Zomato/Zomato";
 import NasaMain from './Nasa/NasaMain';
+import { Grid } from "@material-ui/core";
 
-
-export interface AppProps { }
+export interface AppProps {}
 export interface AppState {
   latitude: number;
   longitude: number;
@@ -19,7 +19,6 @@ class App extends React.Component<{}, AppState> {
       latitude: 0,
       longitude: 0,
       date: new Date(),
-
     };
     this.getLocation = this.getLocation.bind(this);
     this.success = this.success.bind(this);
@@ -31,12 +30,12 @@ class App extends React.Component<{}, AppState> {
   }
 
   getLocation() {
-
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(this.success, this.failure)
+      navigator.geolocation.getCurrentPosition(this.success, this.failure);
     }
   }
   success = (pos: Position): void => {
+
     this.setState({ latitude: pos.coords.latitude })
     this.setState({ longitude: pos.coords.longitude })
   }
@@ -60,6 +59,12 @@ class App extends React.Component<{}, AppState> {
             <Zomato url={zomatoURL} />
           </Grid>
           : null}
+        //////////////Change//////////////<-------9/14/2020
+         {this.state.latitude > 0 && this.state.longitude ? (
+          <Zomato
+            url={`https://developers.zomato.com/api/v2.1/geocode?lat=${this.state.latitude}&lon=${this.state.longitude}`}
+          />
+        ) : null}
       </div>
 
     )

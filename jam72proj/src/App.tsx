@@ -46,7 +46,7 @@ class App extends React.Component<{}, AppState> {
       <div id="app">
         {this.state.latitude > 0 && this.state.longitude ? (
           <Grid container justify="center">
-            <h1> JAM info </h1>
+            <h1> Your Location Info </h1>
             <Grid item xl={12}>
               <div id="mainTopSection">
                 <OpenWeatherMain

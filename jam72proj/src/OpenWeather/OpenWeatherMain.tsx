@@ -51,7 +51,6 @@ class OpenWeatherMain extends React.Component<OpenWeatherMainProps, OpenWeatherM
         fetch(this.props.url)
             .then(res => res.json())
             .then((data: OpenWeatherResp) => {
-                console.log('DATA', data);
                 this.setState({
                     name: data.name,
                     description: data.weather[0].description[0].toUpperCase() + data.weather[0].description.slice(1),
@@ -107,8 +106,6 @@ class OpenWeatherMain extends React.Component<OpenWeatherMainProps, OpenWeatherM
 
     render() {
         return (
-            <Grid container spacing={3}>
-                <Grid item xs={8}>
                     <Grid container justify='center' id='weatherContainer'>
                         <div id='weatherTop'>
                             <div id='weatherDate'> {this.state.date.toDateString()} </div>
@@ -131,8 +128,6 @@ class OpenWeatherMain extends React.Component<OpenWeatherMainProps, OpenWeatherM
                         </div>
 
                     </Grid>
-                </Grid>
-            </Grid>
         )
     }
 }

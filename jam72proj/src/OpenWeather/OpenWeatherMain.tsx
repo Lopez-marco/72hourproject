@@ -51,7 +51,6 @@ class OpenWeatherMain extends React.Component<OpenWeatherMainProps, OpenWeatherM
         fetch(this.props.url)
             .then(res => res.json())
             .then((data: OpenWeatherResp) => {
-                console.log('DATA', data);
                 this.setState({
                     name: data.name,
                     description: data.weather[0].description[0].toUpperCase() + data.weather[0].description.slice(1),

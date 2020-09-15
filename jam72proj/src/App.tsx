@@ -59,11 +59,9 @@ class App extends React.Component<{}, AppState> {
                 />
               </div>
             </Grid>
-            {this.state.latitude > 0 && this.state.longitude ? (
               <Zomato
                 url={`https://developers.zomato.com/api/v2.1/geocode?lat=${this.state.latitude}&lon=${this.state.longitude}`}
               />
-            ) : null}
           </Grid>
         ) : null}
       </div>

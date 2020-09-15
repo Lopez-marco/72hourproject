@@ -34,13 +34,11 @@ class NasaMain extends React.Component<NasaImageMainProps, NasaImageMainState> {
       day = '0' + day;
     }
     let date = `${this.props.date.getFullYear() - 1}-${month}-${day}`;
-    console.log('date ', date);
     return date;
   }
 
   componentgetsProps(date: string) {
     let url = `https://api.nasa.gov/planetary/earth/assets?lon=${this.props.longitude}&lat=${this.props.latitude}&date=${date}&cloud_score=True&api_key=xjTmLfj7sIWxLjV4hzb2nrcxwPuF23ovPcq5YqnI`;
-    console.log(url);
     fetch(url)
       .then((res) => res.json())
       .then((json: NasaMainResponse) => {
